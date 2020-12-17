@@ -42,7 +42,8 @@ class RvAdapter(private val clickListener: IClick) : RecyclerView.Adapter<RvAdap
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = innerList[position]
         holder.itemTitle.text = currentItem
-        Log.d("viewHolder","$i")
+        Log.d("viewHolder counts", "$i")
+        Log.d("viewHolder", "$holder")
     }
 
     fun update(updateList: List<String>) {
