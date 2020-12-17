@@ -14,7 +14,6 @@ class RvAdapter() :
 
     inner class MyViewHolder(itemView: ItemModelBinding) : RecyclerView.ViewHolder(itemView.root) {
         var itemTitle = itemView.tvItemTitle
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
