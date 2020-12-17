@@ -11,8 +11,6 @@ class MainActivity : AppCompatActivity(),IClick {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        val a = binding.root
-//        val b = R.layout.activity_main
 
         binding.tvTitle.text = "Recycler View Test"
 
