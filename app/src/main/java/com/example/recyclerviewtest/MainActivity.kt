@@ -6,26 +6,36 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerviewtest.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(),RvAdapter.IClick {
+class MainActivity : AppCompatActivity(), RvAdapter.IClick {
+    private lateinit var actManBinding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        actManBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(actManBinding.root)
 //        val a = binding.root
 //        val b = R.layout.activity_main
 
-        binding.tvTitle.text = "Recycler View Test"
+        actManBinding.tvTitle.text = "Recycler View Test"
 
-        val dataList = listOf<String>(
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
+        val dataList = listOf<RvData>(
+            RvData("1"),
+            RvData("2"),
+            RvData("3"),
+            RvData("4"),
+            RvData("5", true),
+            RvData("6"),
+            RvData("7", true),
+            RvData("8"),
+            RvData("9"),
+            RvData("10")
         )
 
-        val rvAdapter = RvAdapter(this).apply {
+        val rvAdapter = RvAdapter().apply {
             setClickListener(this@MainActivity)
-        }
+        }//要用到點擊時才傳入的第一種方式
+        //上面apply等於這樣的寫法 rvAdapter.setClickListener(this)
 
-        rvAdapter.setClickListener(this)    //要用到點擊時才傳入的第一種方式
 //        rvAdapter.setClickListener(object : RvAdapter.IClick{
 //            override fun onItemClick(position: Int) {
 //                TODO("Not yet implemented")
@@ -37,16 +47,16 @@ class MainActivity : AppCompatActivity(),RvAdapter.IClick {
 //        })  //第二種方式
 
 
-        binding.rvRecyclerView.adapter = rvAdapter
-        binding.rvRecyclerView.layoutManager = LinearLayoutManager(this)
+        actManBinding.rvRecyclerView.adapter = rvAdapter
+        actManBinding.rvRecyclerView.layoutManager = LinearLayoutManager(this)
         rvAdapter.update(dataList)
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(position: Int): Unit {
         Toast.makeText(this, "position $position clicked", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onItemViewClick(title: String) {
-        Toast.makeText(this, " $title clicked", Toast.LENGTH_SHORT).show()
+    override fun onItemViewClick(rvData: RvData) {
+        Toast.makeText(this, " ${rvData.title} clicked", Toast.LENGTH_SHORT).show()
     }
 }
